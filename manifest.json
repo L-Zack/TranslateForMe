@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "version": "0.0.1",
+    "name": "Translate for Me",
+    "description": "Tradutor para navegador",
+    "author": "Lucas Zacarias",
+    "permissions": ["storage"],
+    "action": {
+        "default_title": "Translate for me",
+        "default_popup": "index.html"
+    }
+}
