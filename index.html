@@ -7,19 +7,24 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
+        <link rel="stylesheet" href="./reset.css">
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
         <h1>
             Translate for me
         </h1>
-        <div id="base">
-            <select id="langInicial" class="langSelector"></select>
-            <select id="langDestino" class="langSelector"></select>
-            <textarea id="texto" placeholder="Insira aqui o texto a ser traduzido"></textarea>
-            <input type="image" src="./source/arrow.png" class="arrow" height="40" width="40">
-        </div>
-
+        <div class="base">
+            <div class="selector">
+                <select id="initialLang" class="langSelector"><option>test</option><option>test2</option></select>
+                <img src="./source/doubleArrow.png" class="doubleArrow">
+                <select id="finalLang" class="langSelector"><option>test</option><option>test2</option></select>
+            </div>
+            <div class="textInput">
+                <textarea class="text" placeholder="Insert text here"></textarea>
+                <input type="image" src="./source/arrow.png" id="arrow" class="arrow" height="40" width="40">
+            </div>
+        </div>    
+        <script type="module" src="./main.js"></script>
     </body>
-
 </html>
