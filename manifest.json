@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "version": "0.0.1",
+    "version": "1.0.0",
     "name": "Translate for Me",
     "description": "Tradutor para navegador",
     "author": "Lucas Zacarias",
