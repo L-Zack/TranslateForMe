@@ -3,6 +3,7 @@ import {countries} from "./countries.js";
 const textareaInput = document.getElementById("text");
 const select = document.querySelectorAll(".langSelector");
 const flecha = document.getElementById("arrow");
+var translationBox = false;
 
 textareaInput.addEventListener("change", alteraBotao);
 textareaInput.addEventListener("click", alteraBotao);
@@ -41,16 +42,25 @@ flecha.addEventListener("click", function() {
     const text = document.getElementById("text").value;
     const div = document.querySelector("#translation");
 
+    
+
     fetch(`https://api.mymemory.translated.net/get?q=${text}&langpair=${langInicial}|${langDestino}`)
     .then(response => response.json()) 
     
     .then(data => {
+
+        if(translationBox == true){
+            document.querySelector("#translationBox").remove()
+            translationBox = false;
+        }
+
         let conteudo = data.responseData.translatedText;
         let translation = document.createElement("textarea");
-        translation.setAttribute("value", "");
+        translation.setAttribute("id", "translationBox");
         translation.setAttribute("disabled", "");
         div.appendChild(translation);
         translation.innerHTML = conteudo;
+        translationBox = true;
     })
     .catch(function(error) {
         console.log(error);
