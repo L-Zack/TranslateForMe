@@ -5,6 +5,9 @@ const select = document.querySelectorAll(".langSelector");
 const flecha = document.getElementById("arrow");
 var translationBox = false;
 
+var savedInitialLang = JSON.parse(localStorage.getItem("savedInitialLang")) || {};
+var savedFinalLang = JSON.parse(localStorage.getItem("savedFinalLang")) || {};
+
 textareaInput.addEventListener("change", alteraBotao);
 textareaInput.addEventListener("click", alteraBotao);
 textareaInput.addEventListener("focus", alteraBotao);
@@ -27,14 +30,8 @@ let tempLang = [];
     })
 })
 
-function alteraBotao() {
-    let trimmed = textareaInput.value.trim();
-    if(trimmed != '') {
-        flecha.classList.add("arrowActived");
-   } else {
-   flecha.classList.remove("arrowActived");
-   }
-}
+document.getElementById("initialLang").value = savedInitialLang;
+document.getElementById("finalLang").value = savedFinalLang;
 
 flecha.addEventListener("click", function() {
     const langInicial = document.getElementById("initialLang").value;
@@ -42,8 +39,8 @@ flecha.addEventListener("click", function() {
     const text = document.getElementById("text").value;
     const div = document.querySelector("#translation");
 
-    
-
+    localStorage.setItem("savedInitialLang", JSON.stringify(langInicial));
+    localStorage.setItem("savedFinalLang", JSON.stringify(langDestino));
     fetch(`https://api.mymemory.translated.net/get?q=${text}&langpair=${langInicial}|${langDestino}`)
     .then(response => response.json()) 
     
@@ -67,3 +64,11 @@ flecha.addEventListener("click", function() {
     })
 })
 
+function alteraBotao() {
+    let trimmed = textareaInput.value.trim();
+    if(trimmed != '') {
+        flecha.classList.add("arrowActived");
+   } else {
+   flecha.classList.remove("arrowActived");
+   }
+}
