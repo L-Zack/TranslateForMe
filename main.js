@@ -1,6 +1,7 @@
 import {countries} from "./countries.js";
 
 const textareaInput = document.getElementById("text");
+const flechaDupla = document.querySelector(".doubleArrow");
 const select = document.querySelectorAll(".langSelector");
 const flecha = document.getElementById("arrow");
 var translationBox = false;
@@ -13,6 +14,7 @@ textareaInput.addEventListener("click", alteraBotao);
 textareaInput.addEventListener("focus", alteraBotao);
 textareaInput.addEventListener("keyup", alteraBotao);
 textareaInput.addEventListener("mouseover", alteraBotao);
+flechaDupla.addEventListener("click", trocaIdioma);
 
 select.forEach(selectButton => {
 let tempLang = [];
@@ -29,19 +31,24 @@ let tempLang = [];
         option.innerHTML = conteudo;
     })
 })
+const langInicial = document.getElementById("initialLang");
+langInicial.value = savedInitialLang;
+const langDestino = document.getElementById("finalLang")
+langDestino.value = savedFinalLang;
 
-document.getElementById("initialLang").value = savedInitialLang;
-document.getElementById("finalLang").value = savedFinalLang;
+console.log(langInicial.value);
+console.log(langDestino.value);
 
 flecha.addEventListener("click", function() {
-    const langInicial = document.getElementById("initialLang").value;
-    const langDestino = document.getElementById("finalLang").value;
+
+    let langInicialTemporaria = langInicial.value;
+    let langDestinoTemporaria = langDestino.value;
     const text = document.getElementById("text").value;
     const div = document.querySelector("#translation");
 
-    localStorage.setItem("savedInitialLang", JSON.stringify(langInicial));
-    localStorage.setItem("savedFinalLang", JSON.stringify(langDestino));
-    fetch(`https://api.mymemory.translated.net/get?q=${text}&langpair=${langInicial}|${langDestino}`)
+    localStorage.setItem("savedInitialLang", JSON.stringify(langInicialTemporaria));
+    localStorage.setItem("savedFinalLang", JSON.stringify(langDestinoTemporaria));
+    fetch(`https://api.mymemory.translated.net/get?q=${text}&langpair=${langInicialTemporaria}|${langDestinoTemporaria}`)
     .then(response => response.json()) 
     
     .then(data => {
@@ -71,4 +78,16 @@ function alteraBotao() {
    } else {
    flecha.classList.remove("arrowActived");
    }
+}
+
+function trocaIdioma() {
+    let langInicialTemporaria = langInicial.value;
+    let langDestinoTemporaria = langDestino.value;
+
+    langInicial.value = langDestinoTemporaria;
+    langDestino.value = langInicialTemporaria;
+
+    localStorage.setItem("savedInitialLang", JSON.stringify(langDestinoTemporaria));
+    localStorage.setItem("savedFinalLang", JSON.stringify(langInicialTemporaria))
+console.log("click");
 }
